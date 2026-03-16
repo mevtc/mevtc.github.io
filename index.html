@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Open source projects from MeV Technology Consulting — DoD PKI, smartcard authentication, and federal identity tools.">
+    <title>MeVTC Open Source</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0d2b4e;
+            --navy-light: #1a3f6f;
+            --teal: #2d9e8f;
+            --teal-dark: #238377;
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #f4f6f8;
+            --gray-200: #e2e6ea;
+            --gray-400: #9ca3af;
+            --gray-600: #6b7280;
+            --gray-800: #374151;
+            --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --max-width: 1140px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: 0.2s ease;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--gray-800);
+            line-height: 1.6;
+            background: var(--white);
+        }
+
+        a {
+            color: var(--teal);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        a:hover { color: var(--teal-dark); }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .header__logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--navy);
+        }
+
+        .header__logo-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .header__logo-text span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .nav { display: flex; align-items: center; gap: 2rem; }
+
+        .nav__link {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.25rem 0;
+            border-bottom: 2px solid transparent;
+            transition: color var(--transition), border-color var(--transition);
+        }
+
+        .nav__link:hover {
+            color: var(--navy);
+            border-bottom-color: var(--teal);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(45, 158, 143, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero .container { position: relative; z-index: 1; }
+
+        .hero__content { max-width: 680px; }
+
+        .hero__tagline {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--teal);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero__title {
+            font-size: 2.75rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero__description {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 560px;
+        }
+
+        /* Section */
+        .section { padding: 5rem 0; }
+        .section--gray { background: var(--gray-50); }
+
+        .section__header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 3rem;
+        }
+
+        .section__title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+        }
+
+        .section__subtitle {
+            font-size: 1.05rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* Project Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            padding: 2rem;
+            transition: box-shadow var(--transition), transform var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card__header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card__icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--teal), var(--navy-light));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .card__title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .card__text {
+            font-size: 0.92rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .card__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            background: var(--gray-100);
+            color: var(--gray-600);
+            border: 1px solid var(--gray-200);
+        }
+
+        .card__link {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 2.5rem 0;
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer a:hover { color: var(--white); }
+
+        .footer__links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { padding: 4rem 0; }
+            .hero__title { font-size: 2rem; }
+            .hero__description { font-size: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .section { padding: 3.5rem 0; }
+            .section__title { font-size: 1.6rem; }
+            .footer .container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .footer__links { gap: 1.5rem; }
+            .nav { gap: 1.5rem; }
+            .nav__link { font-size: 0.85rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero__title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="/" class="header__logo">
+                <div class="header__logo-text">
+                    MeVTC Open Source
+                    <span>MeV Technology Consulting</span>
+                </div>
+            </a>
+            <nav class="nav">
+                <a href="https://www.mevtc.com" class="nav__link">Company</a>
+                <a href="https://github.com/mevtc" class="nav__link">GitHub</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <p class="hero__tagline">Open Source</p>
+                <h1 class="hero__title">Federal Identity &amp; Security Tools</h1>
+                <p class="hero__description">
+                    Open source libraries from MeV Technology Consulting for DoD and federal agency applications. Built for CAC/PIV authentication, PKI certificate handling, and HSPD-12 compliance.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Projects</h2>
+                <p class="section__subtitle">
+                    Libraries and tools for federal identity management, built on real-world DoD deployment experience.
+                </p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card__header">
+                        <div class="card__icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <h3 class="card__title">federal-pki</h3>
+                    </div>
+                    <p class="card__text">
+                        Python utilities for DoD CAC and Federal PKI certificates. X.509 parsing, identity extraction (EDIPI, PIV UUID, FASC-N), CRL revocation checking with background refresh, and trust store management for DISA and Federal PKI CA bundles.
+                    </p>
+                    <div class="card__tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">PKI</span>
+                        <span class="tag">X.509</span>
+                        <span class="tag">CAC</span>
+                        <span class="tag">PIV</span>
+                        <span class="tag">CRL</span>
+                    </div>
+                    <a href="https://github.com/mevtc/federal-pki" class="card__link">
+                        View on GitHub
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-7"/><path d="M5 5h7v7"/></svg>
+                    </a>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <div class="card__icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3 class="card__title">smartcard-auth</h3>
+                    </div>
+                    <p class="card__text">
+                        Reusable FastAPI package for CAC/PIV smartcard authentication with LLDAP user management. Includes enrollment workflows, admin dashboard, audit logging, and dual authentication support for HSPD-12 compliant applications.
+                    </p>
+                    <div class="card__tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">Smartcard</span>
+                        <span class="tag">LLDAP</span>
+                        <span class="tag">HSPD-12</span>
+                    </div>
+                    <a href="https://github.com/mevtc/smartcard-auth" class="card__link">
+                        View on GitHub
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-7"/><path d="M5 5h7v7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- License -->
+    <section class="section section--gray">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">License &amp; Contributing</h2>
+                <p class="section__subtitle">
+                    All projects are released under the BSD 3-Clause License. Contributions are welcome — see each project's CONTRIBUTING.md for guidelines.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <span>&copy; 2024 MeV Technology Consulting, LLC</span>
+            <div class="footer__links">
+                <a href="https://www.mevtc.com">mevtc.com</a>
+                <a href="https://github.com/mevtc">GitHub</a>
+                <a href="mailto:info@mevtc.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
