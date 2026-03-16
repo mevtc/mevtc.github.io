@@ -349,20 +349,42 @@
                 <div class="card">
                     <div class="card__header">
                         <div class="card__icon">
-                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         </div>
-                        <h3 class="card__title">federal-pki</h3>
+                        <h3 class="card__title">pki-core</h3>
                     </div>
                     <p class="card__text">
-                        Python utilities for DoD CAC and Federal PKI certificates. X.509 parsing, identity extraction (EDIPI, PIV UUID, FASC-N), CRL revocation checking with background refresh, and trust store management for DISA and Federal PKI CA bundles.
+                        Generic X.509 certificate utilities for PKI-enabled applications. Certificate parsing, CRL caching with stale-while-revalidate refresh, pluggable identity extraction with provider registry, trust store management, and a composable validation pipeline.
                     </p>
                     <div class="card__tags">
                         <span class="tag">Python</span>
                         <span class="tag">PKI</span>
                         <span class="tag">X.509</span>
+                        <span class="tag">CRL</span>
+                        <span class="tag">Validation</span>
+                    </div>
+                    <a href="https://github.com/mevtc/pki-core" class="card__link">
+                        View on GitHub
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-7"/><path d="M5 5h7v7"/></svg>
+                    </a>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <div class="card__icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <h3 class="card__title">federal-pki</h3>
+                    </div>
+                    <p class="card__text">
+                        DoD CAC, Federal PIV, and ECA provider definitions built on pki-core. Identity extraction (EDIPI, PIV UUID, FASC-N), policy OID registries, CN parsing strategies, and trust store management for DISA and Federal PKI CA bundles.
+                    </p>
+                    <div class="card__tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">PKI</span>
                         <span class="tag">CAC</span>
                         <span class="tag">PIV</span>
-                        <span class="tag">CRL</span>
+                        <span class="tag">ECA</span>
+                        <span class="tag">DoD</span>
                     </div>
                     <a href="https://github.com/mevtc/federal-pki" class="card__link">
                         View on GitHub
