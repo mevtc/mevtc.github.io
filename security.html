@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Security vulnerability reporting and incident response for MeVTC open source projects.">
+    <title>Security — MeVTC Open Source</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy: #0d2b4e; --navy-light: #1a3f6f; --teal: #2d9e8f;
+            --teal-dark: #238377; --white: #ffffff; --gray-50: #f8f9fa;
+            --gray-100: #f4f6f8; --gray-200: #e2e6ea; --gray-400: #9ca3af;
+            --gray-600: #6b7280; --gray-800: #374151;
+            --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --max-width: 800px; --transition: 0.2s ease;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--gray-800); line-height: 1.7; background: var(--white); }
+        a { color: var(--teal); text-decoration: none; transition: color var(--transition); }
+        a:hover { color: var(--teal-dark); }
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+        .header { background: var(--white); border-bottom: 1px solid var(--gray-200); }
+        .header .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+        .header__logo { display: flex; align-items: center; gap: 0.75rem; color: var(--navy); }
+        .header__logo-text { font-size: 1.1rem; font-weight: 600; color: var(--navy); line-height: 1.2; }
+        .header__logo-text span { display: block; font-size: 0.7rem; font-weight: 400; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.08em; }
+        .nav { display: flex; align-items: center; gap: 2rem; }
+        .nav__link { color: var(--gray-600); font-size: 0.95rem; font-weight: 500; padding: 0.25rem 0; border-bottom: 2px solid transparent; transition: color var(--transition), border-color var(--transition); }
+        .nav__link:hover { color: var(--navy); border-bottom-color: var(--teal); }
+        .nav__link--active { color: var(--navy); border-bottom-color: var(--teal); }
+        .content { padding: 3rem 0 5rem; }
+        .content h1 { font-size: 2rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+        .content h2 { font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-top: 2.5rem; margin-bottom: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--gray-200); }
+        .content h2:first-of-type { border-top: none; padding-top: 0; }
+        .content h3 { font-size: 1.1rem; font-weight: 600; color: var(--gray-800); margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        .content p { margin-bottom: 1rem; font-size: 0.95rem; }
+        .content ul, .content ol { margin-bottom: 1rem; padding-left: 1.5rem; font-size: 0.95rem; }
+        .content li { margin-bottom: 0.4rem; }
+        .content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .content th, .content td { border: 1px solid var(--gray-200); padding: 0.5rem 0.75rem; text-align: left; }
+        .content th { background: var(--gray-50); font-weight: 600; color: var(--navy); }
+        .content code { background: var(--gray-100); padding: 0.15rem 0.35rem; border-radius: 3px; font-size: 0.88rem; }
+        .content .lead { font-size: 1.1rem; color: var(--gray-600); margin-bottom: 2rem; }
+        .callout { background: var(--gray-50); border-left: 4px solid var(--teal); padding: 1rem 1.25rem; margin-bottom: 1.5rem; border-radius: 0 4px 4px 0; }
+        .callout p { margin-bottom: 0; }
+        .footer { background: var(--navy); color: rgba(255, 255, 255, 0.7); padding: 2.5rem 0; }
+        .footer .container { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .footer a { color: rgba(255, 255, 255, 0.6); }
+        .footer a:hover { color: var(--white); }
+        .footer__links { display: flex; gap: 2rem; }
+        @media (max-width: 768px) {
+            .content h1 { font-size: 1.6rem; }
+            .footer .container { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="/" class="header__logo">
+                <div class="header__logo-text">
+                    MeVTC Open Source
+                    <span>MeV Technology Consulting</span>
+                </div>
+            </a>
+            <nav class="nav">
+                <a href="/" class="nav__link">Projects</a>
+                <a href="/security" class="nav__link nav__link--active">Security</a>
+                <a href="https://github.com/mevtc" class="nav__link">GitHub</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="container">
+            <h1>Security Policy</h1>
+            <p class="lead">
+                How to report vulnerabilities and what to expect from our
+                incident response process for all MeVTC open source projects.
+            </p>
+
+            <h2>Scope</h2>
+            <p>This policy covers the following projects:</p>
+            <ul>
+                <li><a href="https://github.com/mevtc/pki-core">pki-core</a> — X.509 certificate utilities</li>
+                <li><a href="https://github.com/mevtc/pki-federal">pki-federal</a> — DoD CAC / Federal PIV / ECA provider pack</li>
+                <li><a href="https://github.com/mevtc/fpki-verify-milter">fpki-verify-milter</a> — S/MIME signature verification milter</li>
+                <li>smartcard-auth — FastAPI smartcard authentication package</li>
+            </ul>
+            <p>
+                Vulnerabilities in upstream dependencies (OpenSSL, the
+                <code>cryptography</code> library, Python itself) should be
+                reported to their respective maintainers. If you are unsure
+                whether a vulnerability is in our code or an upstream
+                dependency, report it to us and we will triage.
+            </p>
+
+            <h2>Reporting a Vulnerability</h2>
+            <div class="callout">
+                <p>
+                    <strong>Do not open a public GitHub issue for security vulnerabilities.</strong>
+                </p>
+            </div>
+            <p>Email <strong>info.security@mevtc.com</strong> with:</p>
+            <ul>
+                <li>The affected project and version</li>
+                <li>A description of the vulnerability</li>
+                <li>Steps to reproduce</li>
+                <li>Potential impact</li>
+                <li>Any suggested fixes (optional)</li>
+            </ul>
+            <p>
+                Encrypt sensitive reports with our PGP key if desired
+                (available on request).
+            </p>
+
+            <h2>Severity Classification</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Severity</th>
+                        <th>Definition</th>
+                        <th>Examples</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Critical</strong></td>
+                        <td>Remote exploitation without authentication; bypass of certificate validation</td>
+                        <td>Chain validation bypass, CRL signature verification skip, header injection enabling authentication bypass</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High</strong></td>
+                        <td>Significant security control weakened or bypassed with some preconditions</td>
+                        <td>Revocation check bypass, identity extraction returning wrong identity, algorithm policy circumvention</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Medium</strong></td>
+                        <td>Security control weakened but exploitation requires significant preconditions</td>
+                        <td>CRL cache poisoning via local file access, timing side channels in certificate parsing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Low</strong></td>
+                        <td>Minor security concern with limited practical impact</td>
+                        <td>Information disclosure in error messages, non-security-relevant crashes from malformed input</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Response Timeline</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Critical / High</th>
+                        <th>Medium / Low</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Acknowledgment</td>
+                        <td>24 hours</td>
+                        <td>48 hours</td>
+                    </tr>
+                    <tr>
+                        <td>Severity assessment</td>
+                        <td>48 hours</td>
+                        <td>5 business days</td>
+                    </tr>
+                    <tr>
+                        <td>Fix developed</td>
+                        <td>7 days</td>
+                        <td>30 days</td>
+                    </tr>
+                    <tr>
+                        <td>Patched release</td>
+                        <td>Within 48 hours of fix</td>
+                        <td>Next scheduled release</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Disclosure Policy</h2>
+            <p>
+                We follow <strong>coordinated disclosure</strong> with a
+                <strong>90-day</strong> disclosure window:
+            </p>
+            <ol>
+                <li>Reporter sends vulnerability details to
+                    <strong>info.security@mevtc.com</strong>.</li>
+                <li>We acknowledge receipt and begin assessment.</li>
+                <li>We develop and test a fix in a private branch.</li>
+                <li>We coordinate a release date with the reporter.</li>
+                <li>On release day: patched version published, security
+                    advisory issued (GitHub Security Advisory or equivalent),
+                    CVE requested if applicable.</li>
+                <li>If no fix is available within 90 days, we work with
+                    the reporter on an appropriate disclosure timeline.</li>
+            </ol>
+
+            <h2>After a Fix</h2>
+            <ul>
+                <li><strong>Patched release</strong> published to PyPI /
+                    GitLab Package Registry</li>
+                <li><strong>Security advisory</strong> published via
+                    GitHub Security Advisories</li>
+                <li><strong>CVE</strong> requested for Critical and High
+                    severity vulnerabilities</li>
+                <li><strong>CHANGELOG</strong> updated with the fix
+                    description</li>
+                <li><strong>Regression test</strong> added to prevent
+                    reintroduction</li>
+            </ul>
+
+            <h2>Security Testing</h2>
+            <p>All projects in this ecosystem undergo:</p>
+            <ul>
+                <li><strong>Static analysis</strong> — ruff (linting), mypy
+                    (type checking), bandit (security scanning) on every
+                    commit</li>
+                <li><strong>Dependency scanning</strong> — pip-audit checks
+                    for known vulnerabilities in dependencies</li>
+                <li><strong>Fuzz testing</strong> — Hypothesis property-based
+                    testing with 500+ examples per test in CI, 50,000+ per
+                    test in stress runs</li>
+                <li><strong>SBOM generation</strong> — CycloneDX Software
+                    Bills of Materials published as CI artifacts</li>
+            </ul>
+            <p>
+                Each project's <code>SECURITY.md</code> documents
+                project-specific static analysis suppressions with
+                justifications.
+            </p>
+
+            <h2>Contact</h2>
+            <p>
+                Security issues: <a href="mailto:info.security@mevtc.com">info.security@mevtc.com</a><br>
+                General inquiries: <a href="mailto:info@mevtc.com">info@mevtc.com</a>
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <span>&copy; 2025 MeV Technology Consulting, LLC</span>
+            <div class="footer__links">
+                <a href="https://www.mevtc.com">mevtc.com</a>
+                <a href="https://github.com/mevtc">GitHub</a>
+                <a href="/security">Security</a>
+                <a href="mailto:info@mevtc.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
